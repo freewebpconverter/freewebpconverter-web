@@ -1,5 +1,4 @@
-import Container from './container';
+import Container from "./container";
+import NavigationItem from "./navigation-item";
 
-export {
-  Container
-}
+export { Container, NavigationItem };

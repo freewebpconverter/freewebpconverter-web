@@ -2,14 +2,15 @@
 
 :root {
   --primary: #36bf77;
-  --secondary: #9BE44F;
-  --background: #F9FEF3;
-  --border: #E0F6C9;
+  --secondary: #9be44f;
+  --background: #f9fef3;
+  --border: #e0f6c9;
   --black: #000000;
   --gray: #878480;
   --white: #fff;
 }
 * {
+  font-family: "Poppins", sans-serif;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
