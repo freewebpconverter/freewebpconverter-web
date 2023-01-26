@@ -5,7 +5,6 @@ import styles from "@/styles/Home.module.css";
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -13,7 +12,6 @@ const inter = Inter({ subsets: ["latin"] });
 type Props = {};
 
 const Home = () => {
-  const router = useRouter();
   const { t } = useTranslation("common");
 
   return (
