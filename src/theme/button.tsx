@@ -1,8 +1,5 @@
 import React from "react";
 import { ConfigProvider } from "antd";
-import { Poppins } from "@next/font/google";
-
-const fontPoppins = Poppins({ weight: ["400", "500"], subsets: ["latin"] });
 
 interface IButtonTheme {
   children: React.ReactNode;
@@ -15,7 +12,6 @@ const ButtonTheme = ({ children, type }: IButtonTheme) => {
       theme={{
         token: {
           colorPrimary: "#36bf77",
-          fontFamily: fontPoppins.style.fontFamily,
           fontWeightStrong: 500,
           fontSize: 15,
           borderRadius: 6,
