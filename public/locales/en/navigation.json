@@ -1,0 +1,16 @@
+{
+  "menu": [
+    {
+      "url": "/en/about",
+      "title": "About"
+    },
+    {
+      "url": "/en/features",
+      "title": "Features"
+    },
+    {
+      "url": "/en/contact",
+      "title": "Contact"
+    }
+  ]
+}

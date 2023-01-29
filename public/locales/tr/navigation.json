@@ -1,0 +1,16 @@
+{
+  "menu": [
+    {
+      "url": "/tr/about",
+      "title": "Hakkımızda"
+    },
+    {
+      "url": "/tr/features",
+      "title": "Özellikler"
+    },
+    {
+      "url": "/tr/contact",
+      "title": "İletişim"
+    }
+  ]
+}
