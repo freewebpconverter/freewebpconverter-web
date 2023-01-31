@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 
 type Props = {};
 
-const About = () => {
+const Contact = () => {
   const { t } = useTranslation("navigation");
 
   let navigationData = [
@@ -47,4 +47,4 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => ({
   },
 });
 
-export default About;
+export default Contact;

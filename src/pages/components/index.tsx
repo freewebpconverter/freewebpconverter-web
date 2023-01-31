@@ -2,7 +2,6 @@ import React from "react";
 
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { Button, Container, Icon, Title } from "@components/atoms";
-import { Navigation } from "@components/molecules";
 import { Divider } from "antd";
 
 const ComponentsPage = () => {
@@ -22,7 +21,6 @@ const ComponentsPage = () => {
       <Button type="primary">Try the app, it’s free</Button>
       <Divider />
       <Title level={3}>Navigation</Title>
-      <Navigation />
     </Container>
   );
 };
