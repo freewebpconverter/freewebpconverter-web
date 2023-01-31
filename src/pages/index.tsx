@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Container, Title } from "@components/atoms";
+import { Container, Title, Paragraph } from "@components/atoms";
 import { Header, DragSection } from "@components/organisms";
 import { Space, Row, Col } from "antd";
 
@@ -50,6 +50,10 @@ const Home = () => {
               <Title level={2} style={{ margin: 0 }}>
                 Convert Any Image File.
               </Title>
+              <Paragraph size={21}>
+                Free WebP Converter is an image file converter. Convert any
+                image files to WEBP format in seconds.
+              </Paragraph>
             </Space>
           </Col>
           <Col span={12}>

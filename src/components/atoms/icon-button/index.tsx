@@ -9,7 +9,6 @@ const IconButton = ({ children, ...rest }: ButtonProps) => {
         shape="circle"
         type="primary"
         {...rest}
-        style={{ boxShadow: "none" }}
       >
         {children}
       </AntdButton>

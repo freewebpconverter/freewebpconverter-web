@@ -1,5 +1,6 @@
 const primary = {
   main: "#36bf77",
+  "500": "#96DEB4",
 };
 
 const secondary = {
@@ -10,4 +11,8 @@ const background = {
   main: "#F9FEF3",
 };
 
-export { primary, secondary, background };
+const text = {
+  main: "#878480",
+};
+
+export { primary, secondary, background, text };

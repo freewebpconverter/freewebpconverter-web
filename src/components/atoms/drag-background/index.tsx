@@ -6,6 +6,7 @@ interface IDragBackground {
 }
 
 const style: CSSProperties | undefined = {
+  position: "relative",
   maxWidth: 640,
   width: "100%",
   height: 360,
