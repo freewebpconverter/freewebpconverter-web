@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { CSSProperties } from "react";
 import { Icon, IconButton, DragBackground, Paragraph } from "@components/atoms";
 import { faInfo, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +12,8 @@ const iconStyle: CSSProperties | undefined = {
 };
 
 const DragSection = () => {
+  const [isDrag, setIsDrag] = useState(false);
+
   const dropzone = useRef<HTMLElement | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
 
@@ -19,16 +21,22 @@ const DragSection = () => {
     e.stopPropagation();
     e.preventDefault();
 
-    const files = Array.from(e.dataTransfer.files);
+    setIsDrag(false);
 
-    console.log("files: ", files);
+    const files = Array.from(e.dataTransfer.files);
   };
 
   const dragHandler = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
 
-    console.log("drag!");
+    setIsDrag(true);
+  };
+  const dragLeaveHandler = (e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    setIsDrag(false);
   };
 
   const clickHandler = () => {
@@ -45,12 +53,14 @@ const DragSection = () => {
     if (dropzone.current) {
       dropzone.current.addEventListener("drop", dropHandler);
       dropzone.current.addEventListener("dragover", dragHandler);
+      dropzone.current.addEventListener("dragleave", dragLeaveHandler);
     }
 
     return () => {
       if (dropzone.current) {
         dropzone.current.removeEventListener("drop", dropHandler);
         dropzone.current.removeEventListener("dragover", dragHandler);
+        dropzone.current.removeEventListener("dragleave", dragLeaveHandler);
       }
     };
   }, [dropzone]);
@@ -64,8 +74,16 @@ const DragSection = () => {
       </Tooltip>
       <Row justify="center" align="middle" style={{ height: "100%" }}>
         <Space direction="vertical" align="center">
-          <Icon size="4x" icon={faCloudArrowUp} color={primary[500]} />
-          <Paragraph size={17} color={primary[500]} style={{ margin: 0 }}>
+          <Icon
+            size="4x"
+            icon={faCloudArrowUp}
+            color={isDrag ? primary.main : primary[500]}
+          />
+          <Paragraph
+            size={17}
+            color={isDrag ? primary.main : primary[500]}
+            style={{ margin: 0 }}
+          >
             Drag your files here
           </Paragraph>
         </Space>
