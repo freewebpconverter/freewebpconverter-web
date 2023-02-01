@@ -1,7 +1,10 @@
+import React from "react";
 import { CSSProperties } from "react";
 import { secondary, background } from "@/theme/color";
 
 interface IDragBackground {
+  onClick: () => void;
+  ref?: any;
   children: React.ReactNode;
 }
 
@@ -15,8 +18,22 @@ const style: CSSProperties | undefined = {
   borderRadius: 10,
 };
 
-const DragBackground = ({ children }: IDragBackground) => {
-  return <section style={style}>{children}</section>;
-};
+const DragBackground = React.forwardRef<HTMLElement, IDragBackground>(
+  (props, ref) => {
+    const { children, onClick, ...rest } = props;
+
+    return (
+      <section
+        ref={ref}
+        {...rest}
+        style={style}
+        draggable={true}
+        onClick={onClick}
+      >
+        {children}
+      </section>
+    );
+  }
+);
 
 export default DragBackground;

@@ -19,7 +19,7 @@ const TitleComponent = ({
   return (
     <ParagraphTheme size={size} color={color}>
       <Paragraph {...rest}>
-        <p>{children}</p>
+        <p style={{ margin: 0 }}>{children}</p>
       </Paragraph>
     </ParagraphTheme>
   );
