@@ -11,7 +11,10 @@ import { ConfigProvider } from "antd";
 
 config.autoAddCss = false;
 
-const fontPoppins = Poppins({ weight: ["400", "500"], subsets: ["latin"] });
+const fontPoppins = Poppins({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+});
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

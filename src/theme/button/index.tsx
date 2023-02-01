@@ -4,20 +4,19 @@ import { ConfigProvider } from "antd";
 interface IButtonTheme {
   children: React.ReactNode;
   type: string | undefined;
+  customBg?: string;
 }
 
-const ButtonTheme = ({ children, type }: IButtonTheme) => {
+const ButtonTheme = ({ children, type, customBg }: IButtonTheme) => {
   return (
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "#36bf77",
+          colorPrimary: customBg ? customBg : "#36bf77",
           fontWeightStrong: 500,
           fontSize: 15,
           borderRadius: 6,
 
-          colorPrimaryBg: "#36bf77",
-          colorPrimaryBgHover: "#259e95",
           colorPrimaryText: "#fff",
 
           colorLink: "#000",

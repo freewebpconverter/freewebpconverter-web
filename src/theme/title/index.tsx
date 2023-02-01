@@ -14,6 +14,7 @@ const TitleTheme = ({ children }: ITitleTheme) => {
           fontSizeHeading2: 53,
           fontSizeHeading3: 21,
           fontSizeHeading4: 13,
+          fontWeightStrong: 700,
         },
       }}
     >

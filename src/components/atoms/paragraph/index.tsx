@@ -18,7 +18,9 @@ const TitleComponent = ({
 }: IParagraphProps) => {
   return (
     <ParagraphTheme size={size} color={color}>
-      <Paragraph {...rest}>{children}</Paragraph>
+      <Paragraph {...rest}>
+        <p>{children}</p>
+      </Paragraph>
     </ParagraphTheme>
   );
 };

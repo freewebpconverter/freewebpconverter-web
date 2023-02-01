@@ -11,10 +11,10 @@ const Header = (props: INavigationProps) => {
       <Container>
         <Row justify="space-between" align="middle">
           <Logo />
-          <Space size={50}>
+          {/* <Space size={50}>
             <Navigation data={data} />
             <Button type="primary">Try the app, it’s free</Button>
-          </Space>
+          </Space> */}
         </Row>
       </Container>
     </header>

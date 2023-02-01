@@ -46,3 +46,50 @@
     max-width: 1320px;
   }
 }
+
+.circle-animation {
+  position: absolute;
+  width: 50vh;
+  height: 50vh;
+  left: -25vh;
+  top: 50px;
+  border-radius: 50%;
+  z-index: -1;
+  transform: rotate(0deg);
+  background: rgb(224, 246, 201);
+  background: linear-gradient(-90deg, #E0F6C9 0%, #F5FCEE 100%);
+  transform-origin: center center;
+
+  animation-name: circleAnimation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-timing-function: linear;
+}
+
+.circle-animation::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  background-color: #fff;
+}
+
+@keyframes circleAnimation {
+  from {
+    transform-origin: center center;
+    transform: rotate(0deg);
+  }
+  to {
+    transform-origin: center center;
+    transform: rotate(360deg);
+  }
+}

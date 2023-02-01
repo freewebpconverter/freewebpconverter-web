@@ -2,9 +2,13 @@ import React from "react";
 import { Button as AntdButton, ButtonProps } from "antd";
 import { ButtonTheme } from "@/theme";
 
-const Button = ({ children, type, ...rest }: ButtonProps) => {
+interface IButtonProps extends ButtonProps {
+  customBg?: string;
+}
+
+const Button = ({ children, type, customBg, ...rest }: IButtonProps) => {
   return (
-    <ButtonTheme type={type}>
+    <ButtonTheme customBg={customBg} type={type}>
       <AntdButton type={type} {...rest} style={{ boxShadow: "none" }}>
         {children}
       </AntdButton>

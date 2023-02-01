@@ -13,7 +13,7 @@ const iconStyle: CSSProperties | undefined = {
 const DragSection = () => {
   return (
     <DragBackground>
-      <Tooltip title="Max. 5 MB File">
+      <Tooltip title="Max. 5 MB Image(JPG, JPEG, GIF and PNG) File">
         <IconButton style={iconStyle}>
           <Icon icon={faInfo} />
         </IconButton>

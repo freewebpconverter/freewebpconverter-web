@@ -6,6 +6,7 @@ import Title from "./title";
 import Paragraph from "./paragraph";
 import Logo from "./logo";
 import DragBackground from "./drag-background";
+import CircleAnimation from "./circle-animation";
 
 export {
   Button,
@@ -16,4 +17,5 @@ export {
   Paragraph,
   Logo,
   DragBackground,
+  CircleAnimation,
 };
