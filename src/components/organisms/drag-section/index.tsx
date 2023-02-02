@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
+
 import { CSSProperties } from "react";
 import { Icon, IconButton, DragBackground, Paragraph } from "@components/atoms";
 import { faInfo, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
@@ -23,7 +25,11 @@ const DragSection = () => {
 
     setIsDrag(false);
 
-    const files = Array.from(e.dataTransfer.files);
+    const files = e.dataTransfer.files;
+
+    if (files.length > 0) {
+      setConvert(files);
+    }
   };
 
   const dragHandler = (e: any) => {
@@ -32,6 +38,7 @@ const DragSection = () => {
 
     setIsDrag(true);
   };
+
   const dragLeaveHandler = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
@@ -46,7 +53,42 @@ const DragSection = () => {
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("e.target.files: ", e.target.files);
     if (!e.target.files) return;
+
+    setConvert(e.target.files);
+  };
+
+  const setConvert = (files: FileList) => {
+    const formData: any = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      const fileItem = files[i];
+
+      formData.append("files", fileItem, fileItem.name);
+    }
+
+    axios
+      .post("http://localhost:3000/api/convert", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        res.data.body.map((item: any, index: any) => {
+          var a = document.createElement("a");
+          a.href = "data:image/webp;base64," + item;
+          a.download = `convertImage${index}.webp`;
+          a.click();
+        });
+
+        /*
+      var a = document.createElement("a");
+      a.href = "data:image/webp;base64," + res.data.file;
+      a.download = "convertedWebp.webp";
+      a.click();
+      */
+      });
   };
 
   useEffect(() => {
@@ -91,6 +133,7 @@ const DragSection = () => {
       <input
         onChange={onInputChange}
         type="file"
+        multiple
         ref={fileInput}
         style={{ display: "none" }}
       />

@@ -72,3 +72,44 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => ({
 });
 
 export default AboutPage;
+
+
+
+
+
+
+
+
+
+// const handler: NextApiHandler = async (req, res) => {
+//   const sharp = require("sharp");
+
+//   const options: formidable.Options = {};
+//   options.maxFileSize = 4000 * 1024 * 1024;
+//   options.multiples = true;
+
+//   const form = formidable(options);
+//   form.parse(req, (err, fields, files) => {
+//     if (err) console.log("err: ", err);
+
+//     res.writeHead(200, { "Content-Type": "application/json" });
+//     res.end(JSON.stringify({ fields, files }, null, 2));
+
+//     // res.json({ message: "success", response: body });
+
+//     let url: string = files.image.filepath;
+
+//     sharp(url)
+//       .webp()
+//       .toBuffer()
+//       .then((sharpRes: any) => {
+//         let buf = Buffer.from(sharpRes);
+//         let dataBase64 = Buffer.from(buf).toString("base64");
+
+//         res.json({ message: "success", file: dataBase64 });
+//       })
+//       .catch((sharpErr: any) => {
+//         res.json({ message: "error" });
+//       });
+//   });
+// };
