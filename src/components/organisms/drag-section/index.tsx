@@ -69,7 +69,7 @@ const DragSection = () => {
     }
 
     axios
-      .post("http://localhost:3000/api/convert", formData, {
+      .post("/api/convert", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -77,17 +77,10 @@ const DragSection = () => {
       .then((res) => {
         res.data.body.map((item: any, index: any) => {
           var a = document.createElement("a");
-          a.href = "data:image/webp;base64," + item;
+          a.href = "data:image/webp;base64," + item.base64;
           a.download = `convertImage${index}.webp`;
           a.click();
         });
-
-        /*
-      var a = document.createElement("a");
-      a.href = "data:image/webp;base64," + res.data.file;
-      a.download = "convertedWebp.webp";
-      a.click();
-      */
       });
   };
 

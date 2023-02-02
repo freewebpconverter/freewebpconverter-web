@@ -12,12 +12,14 @@ const handler: NextApiHandler = async (req, res) => {
   options.multiples = true;
   const form = formidable(options);
 
-  form.parse(req, (err, fields, files) => {
+  form.parse(req, (err, fields, files: any) => {
     if (err) {
       res.json({ success: false });
     }
 
-    convertAllImageToBase64(files.files)
+    const type = files.files.length ? "multiple" : "single";
+
+    convertAllImageToBase64(files.files, type)
       .then((response) => {
         res.json({
           success: true,
@@ -34,49 +36,42 @@ const handler: NextApiHandler = async (req, res) => {
   });
 };
 
-const resizeImages = async (files: any) => {
-  const sharp = require("sharp");
-  let images: any = [];
+const convertAllImageToBase64 = (files: any, type: string) => {
+  return new Promise(async (resolve, reject) => {
+    const sharp = require("sharp");
+    let images: any = [];
 
-  await Promise.all(
-    files.map(async (file: any) => {
-      await sharp(file.filepath)
+    if (type === "multiple") {
+      await Promise.all(
+        files.map(async (file: any) => {
+          await sharp(file.filepath)
+            .webp()
+            .toBuffer()
+            .then((sharpRes: any) => {
+              let buf = Buffer.from(sharpRes);
+              let dataBase64 = Buffer.from(buf).toString("base64");
+
+              images.push({ base64: dataBase64, name: file.originalFilename });
+            })
+            .catch((sharpErr: any) => {
+              reject(`sharpErr: ${sharpErr}`);
+            });
+        })
+      );
+    } else {
+      await sharp(files.filepath)
         .webp()
         .toBuffer()
         .then((sharpRes: any) => {
           let buf = Buffer.from(sharpRes);
           let dataBase64 = Buffer.from(buf).toString("base64");
 
-          images.push(dataBase64);
+          images.push({ base64: dataBase64, name: files.name });
         })
         .catch((sharpErr: any) => {
-          console.log("sharpErr: ", sharpErr);
+          reject(`sharpErr: ${sharpErr}`);
         });
-    })
-  );
-};
-
-const convertAllImageToBase64 = (files: any) => {
-  return new Promise(async (resolve, reject) => {
-    const sharp = require("sharp");
-    let images: any = [];
-
-    await Promise.all(
-      files.map(async (file: any) => {
-        await sharp(file.filepath)
-          .webp()
-          .toBuffer()
-          .then((sharpRes: any) => {
-            let buf = Buffer.from(sharpRes);
-            let dataBase64 = Buffer.from(buf).toString("base64");
-
-            images.push(dataBase64);
-          })
-          .catch((sharpErr: any) => {
-            reject(`sharpErr: ${sharpErr}`);
-          });
-      })
-    );
+    }
 
     resolve(images);
   });
