@@ -1,8 +1,44 @@
 import { Container, Icon } from "@/components/atoms";
 import { PictureFrame, SectionTitle } from "@/components/molecules";
-import { Col, Row } from "antd";
+import { Col, ColProps, Row } from "antd";
 
 const PerformanceSection = () => {
+  const imageCol: ColProps = {
+    xs: {
+      span: 24,
+    },
+    md: {
+      span: 24,
+    },
+    lg: {
+      span: 9,
+    },
+    xl: {
+      span: 9,
+    },
+    xxl: {
+      span: 10,
+    },
+  };
+
+  const arrowCol: ColProps = {
+    xs: {
+      span: 24,
+    },
+    md: {
+      span: 24,
+    },
+    lg: {
+      span: 6,
+    },
+    xl: {
+      span: 5,
+    },
+    xxl: {
+      span: 4,
+    },
+  };
+
   return (
     <Container>
       <Row justify="center">
@@ -15,14 +51,14 @@ const PerformanceSection = () => {
         </Col>
       </Row>
       <Row justify="center" align="middle" gutter={100}>
-        <Col>
+        <Col {...imageCol}>
           <PictureFrame
             title="PNG"
             detail="70 KB"
             img="/assets/img/picture.png"
           />
         </Col>
-        <Col>
+        <Col {...arrowCol} style={{ textAlign: "center" }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="150"
@@ -37,7 +73,7 @@ const PerformanceSection = () => {
             />
           </svg>
         </Col>
-        <Col>
+        <Col {...imageCol}>
           <PictureFrame
             title="WEBP"
             detail="45 KB"

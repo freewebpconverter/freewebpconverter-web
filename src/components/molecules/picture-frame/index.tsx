@@ -12,11 +12,12 @@ type PictureFrameProps = {
 const imageStyle = (img: string) => ({
   position: "relative",
   backgroundImage: `url(${img})`,
-  width: 460,
+  width: "100%",
   height: 460,
   borderRadius: 20,
   backgroundPosition: "center",
   backgroundSize: "cover",
+  margin: "50px 0px",
 });
 
 const frameStyle: CSSProperties = {
@@ -35,14 +36,10 @@ const PictureFrame = (props: PictureFrameProps) => {
 
   return (
     <>
-      <Row>
-        <Col>
-          <section style={imageStyle(img) as CSSProperties}>
-            <div style={frameStyle}></div>
-          </section>
-        </Col>
-      </Row>
-      <Row justify="center">
+      <section style={imageStyle(img) as CSSProperties}>
+        <div style={frameStyle}></div>
+      </section>
+      <Row justify="center" style={{ marginBottom: 50 }}>
         <Col>
           <Title
             level={2}

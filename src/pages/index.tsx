@@ -58,7 +58,7 @@ const Home = () => {
       <CircleAnimation />
       <Container>
         <Row justify="space-between" align="middle" gutter={90}>
-          <Col span={12}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <Space direction="vertical" size={0}>
               <Title level={1} style={{ margin: 0, color: primary.main }}>
                 Free WebP Converter
@@ -72,7 +72,7 @@ const Home = () => {
               </Paragraph>
             </Space>
           </Col>
-          <Col span={12}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <DragSection />
           </Col>
         </Row>

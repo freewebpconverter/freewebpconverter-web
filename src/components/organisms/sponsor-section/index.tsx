@@ -29,8 +29,18 @@ const SponsorSection = () => {
           </Row>
           <Row justify="center">
             <Col>
-              <Space size={30}>
-                <Button customBg={gray.main} type="primary">
+              <Space
+                size={30}
+                wrap={true}
+                align="center"
+                style={{ justifyContent: "center" }}
+              >
+                <Button
+                  customBg={gray.main}
+                  type="primary"
+                  href="https://github.com/freewebpconverter"
+                  target="_blank"
+                >
                   <Space size={20} align="center">
                     <Icon size="1x" icon={faGithub} />
                     Github

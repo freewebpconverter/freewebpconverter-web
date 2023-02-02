@@ -70,9 +70,9 @@ const PopularSitesUsingSection = () => {
               </Title>
             </Col>
           </Row>
-          <Row align={"middle"} gutter={[50, 150]} style={{ marginTop: 100 }}>
+          <Row align={"middle"} gutter={[50, 100]} style={{ marginTop: 100 }}>
             {iconCollection.map((item, index) => (
-              <Col span={6} key={index}>
+              <Col key={index} xs={{ span: 12 }} lg={{ span: 6 }}>
                 <Row justify="center">
                   <Col>
                     <Icon

@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+html,
+body,
+#__next {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .container {
   position: relative;
   margin-left: auto;
@@ -57,7 +64,7 @@
   z-index: -1;
   transform: rotate(0deg);
   background: rgb(224, 246, 201);
-  background: linear-gradient(-90deg, #E0F6C9 0%, #F5FCEE 100%);
+  background: linear-gradient(-90deg, #e0f6c9 0%, #f5fcee 100%);
   transform-origin: center center;
 
   animation-name: circleAnimation;

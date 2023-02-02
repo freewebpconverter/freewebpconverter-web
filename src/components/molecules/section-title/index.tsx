@@ -29,10 +29,10 @@ const SectionTitle = (props: SectionTitleProps) => {
       >
         {mainTitle}
       </Title>
-      <Title level={1} color={black.main} style={{ marginBottom: 10 }}>
+      <Title level={1} color={black.main} style={{ marginBottom: 10, textAlign: "center" }}>
         {title}
       </Title>
-      <Paragraph size={21} color={text.main} style={{ marginBottom: 0 }}>
+      <Paragraph size={21} color={text.main} style={{ marginBottom: 0, textAlign: "center" }}>
         {detail}
       </Paragraph>
     </Space>
