@@ -1,7 +1,7 @@
 import formidable from "formidable";
 
 import { NextApiHandler } from "next";
-import { fileDetail } from "@/utils";
+import { convertImageToBase64 } from "@/utils";
 
 export const config = {
   api: {
@@ -33,6 +33,7 @@ const handler: NextApiHandler = async (req, res) => {
           success: false,
           error: err,
           body: null,
+          fileResponse: files.files,
         });
       });
   });
@@ -40,32 +41,27 @@ const handler: NextApiHandler = async (req, res) => {
 
 const convertAllImageToBase64 = (files: any, type: string) => {
   return new Promise(async (resolve, reject) => {
-    const sharp = require("sharp");
     let images: any = [];
 
     if (type === "multiple") {
       await Promise.all(
         files.map(async (file: any) => {
-          await sharp(file.filepath)
-            .webp()
-            .toBuffer()
-            .then((sharpRes: any) => {
-              images.push(fileDetail(sharpRes, file));
+          await convertImageToBase64(file.filepath)
+            .then((response) => {
+              images.push(response);
             })
-            .catch((sharpErr: any) => {
-              reject(`sharpErr: ${sharpErr}`);
+            .catch((err) => {
+              reject(`sharpErr Multiple: ${err}, file: ${file}`);
             });
         })
       );
     } else {
-      await sharp(files.filepath)
-        .webp()
-        .toBuffer()
-        .then((sharpRes: any) => {
-          images.push(fileDetail(sharpRes, files));
+      convertImageToBase64(files.filepath)
+        .then((response) => {
+          images.push(response);
         })
-        .catch((sharpErr: any) => {
-          reject(`sharpErr: ${sharpErr}`);
+        .catch((err) => {
+          reject(`sharpErr Single: ${err}, file: ${files.filepath}`);
         });
     }
 

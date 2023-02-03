@@ -74,13 +74,18 @@ const DragSection = () => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => {
-        res.data.body.map((item: any, index: any) => {
-          var a = document.createElement("a");
-          a.href = "data:image/webp;base64," + item.base64;
-          a.download = `convertImage${index}.webp`;
-          a.click();
-        });
+      .then((res: any) => {
+        if (res.data.success) {
+          res.data.body.map((item: any, index: any) => {
+            var a = document.createElement("a");
+            a.href = "data:image/webp;base64," + item.file;
+            a.download = `convertImage${index}.webp`;
+            a.click();
+          });
+        }
+      })
+      .catch((err) => {
+        console.log("err: ", err);
       });
   };
 
