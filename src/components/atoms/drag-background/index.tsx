@@ -12,7 +12,7 @@ const style: CSSProperties | undefined = {
   position: "relative",
   maxWidth: 640,
   width: "100%",
-  height: 360,
+  minHeight: 360,
   backgroundColor: background.main,
   border: `dashed 2px ${secondary.main}`,
   borderRadius: 10,

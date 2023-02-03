@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { CSSProperties } from "react";
 import { Icon, IconButton, DragBackground, Paragraph } from "@components/atoms";
+import { ListSection } from "@components/organisms";
 import { faInfo, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { Space, Tooltip, Row } from "antd";
 import { primary } from "@/theme/color";
@@ -113,7 +114,8 @@ const DragSection = () => {
         </IconButton>
       </Tooltip>
       <Row justify="center" align="middle" style={{ height: "100%" }}>
-        <Space direction="vertical" align="center">
+        <ListSection />
+        {/* <Space direction="vertical" align="center">
           <Icon
             size="4x"
             icon={faCloudArrowUp}
@@ -126,7 +128,7 @@ const DragSection = () => {
           >
             Drag your files here
           </Paragraph>
-        </Space>
+        </Space> */}
       </Row>
       <input
         onChange={onInputChange}

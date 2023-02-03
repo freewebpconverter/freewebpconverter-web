@@ -5,6 +5,7 @@ import PopularSitesUsingSection from "./popular-sites-using-section";
 import PerformanceSection from "./performance-section";
 import SponsorSection from "./sponsor-section";
 import Footer from "./footer";
+import ListSection from "./list-section";
 
 export {
   Header,
@@ -14,4 +15,5 @@ export {
   PerformanceSection,
   SponsorSection,
   Footer,
+  ListSection,
 };
