@@ -6,6 +6,7 @@ import PerformanceSection from "./performance-section";
 import SponsorSection from "./sponsor-section";
 import Footer from "./footer";
 import ListSection from "./list-section";
+import ListTable from "./list-table";
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   SponsorSection,
   Footer,
   ListSection,
+  ListTable,
 };

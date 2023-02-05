@@ -3,9 +3,9 @@ import axios from "axios";
 
 import { CSSProperties } from "react";
 import { Icon, IconButton, DragBackground, Paragraph } from "@components/atoms";
-import { ListSection } from "@components/organisms";
+import { ListSection, ListTable } from "@components/organisms";
 import { faInfo, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { Space, Tooltip, Row } from "antd";
+import { Space, Tooltip, Row, Col } from "antd";
 import { primary } from "@/theme/color";
 import type { IUploadedFile } from "./data";
 
@@ -50,7 +50,7 @@ const DragSection = () => {
   };
 
   const clickHandler = () => {
-    if (fileInput.current && fileList.length === 0) {
+    if (fileInput.current) {
       fileInput.current.click();
     }
   };
@@ -79,21 +79,14 @@ const DragSection = () => {
       })
       .then((res: any) => {
         if (res.data.success) {
-          setFileList(
-            res.data.body.map((item: any) => ({
-              ...item,
-              file: "data:image/webp;base64," + item.file,
-            }))
-          );
+          const responseFileList: any = res.data.body.map((item: any) => ({
+            ...item,
+            file: "data:image/webp;base64," + item.file,
+          }));
 
-          /*
-          res.data.body.map((item: any, index: any) => {
-            var a = document.createElement("a");
-            a.href = "data:image/webp;base64," + item.file;
-            a.download = `convertImage${index}.webp`;
-            a.click();
-          });
-          */
+          const newFileList: any = [...responseFileList, ...fileList];
+
+          setFileList(newFileList);
         }
       })
       .catch((err) => {
@@ -118,15 +111,14 @@ const DragSection = () => {
   }, [dropzone]);
 
   return (
-    <DragBackground ref={dropzone} onClick={clickHandler}>
-      <Tooltip title="Max. 5 MB Image(JPG, JPEG, GIF and PNG) File">
-        <IconButton style={iconStyle}>
-          <Icon icon={faInfo} />
-        </IconButton>
-      </Tooltip>
-      <Row justify="center" align="middle" style={{ height: "100%" }}>
-        {fileList.length > 0 && <ListSection fileList={fileList} />}
-        {fileList.length === 0 && (
+    <>
+      <DragBackground ref={dropzone} onClick={clickHandler}>
+        <Tooltip title="Max. 5 MB Image(JPG, JPEG, GIF and PNG) File">
+          <IconButton style={iconStyle}>
+            <Icon icon={faInfo} />
+          </IconButton>
+        </Tooltip>
+        <Row justify="center" align="middle" style={{ height: "100%" }}>
           <Space direction="vertical" align="center">
             <Icon
               size="4x"
@@ -141,16 +133,17 @@ const DragSection = () => {
               Drag your files here
             </Paragraph>
           </Space>
-        )}
-      </Row>
-      <input
-        onChange={onInputChange}
-        type="file"
-        multiple
-        ref={fileInput}
-        style={{ display: "none" }}
-      />
-    </DragBackground>
+        </Row>
+        <input
+          onChange={onInputChange}
+          type="file"
+          multiple
+          ref={fileInput}
+          style={{ display: "none" }}
+        />
+      </DragBackground>
+      <ListTable fileList={fileList} />
+    </>
   );
 };
 
