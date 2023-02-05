@@ -7,6 +7,7 @@ import { ListSection } from "@components/organisms";
 import { faInfo, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { Space, Tooltip, Row } from "antd";
 import { primary } from "@/theme/color";
+import type { IUploadedFile } from "./data";
 
 const iconStyle: CSSProperties | undefined = {
   position: "absolute",
@@ -16,6 +17,7 @@ const iconStyle: CSSProperties | undefined = {
 
 const DragSection = () => {
   const [isDrag, setIsDrag] = useState(false);
+  const [fileList, setFileList] = useState([]);
 
   const dropzone = useRef<HTMLElement | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
@@ -48,7 +50,7 @@ const DragSection = () => {
   };
 
   const clickHandler = () => {
-    if (fileInput.current) {
+    if (fileInput.current && fileList.length === 0) {
       fileInput.current.click();
     }
   };
@@ -77,12 +79,21 @@ const DragSection = () => {
       })
       .then((res: any) => {
         if (res.data.success) {
+          setFileList(
+            res.data.body.map((item: any) => ({
+              ...item,
+              file: "data:image/webp;base64," + item.file,
+            }))
+          );
+
+          /*
           res.data.body.map((item: any, index: any) => {
             var a = document.createElement("a");
             a.href = "data:image/webp;base64," + item.file;
             a.download = `convertImage${index}.webp`;
             a.click();
           });
+          */
         }
       })
       .catch((err) => {
@@ -114,21 +125,23 @@ const DragSection = () => {
         </IconButton>
       </Tooltip>
       <Row justify="center" align="middle" style={{ height: "100%" }}>
-        <ListSection />
-        {/* <Space direction="vertical" align="center">
-          <Icon
-            size="4x"
-            icon={faCloudArrowUp}
-            color={isDrag ? primary.main : primary[500]}
-          />
-          <Paragraph
-            size={17}
-            color={isDrag ? primary.main : primary[500]}
-            style={{ margin: 0 }}
-          >
-            Drag your files here
-          </Paragraph>
-        </Space> */}
+        {fileList.length > 0 && <ListSection fileList={fileList} />}
+        {fileList.length === 0 && (
+          <Space direction="vertical" align="center">
+            <Icon
+              size="4x"
+              icon={faCloudArrowUp}
+              color={isDrag ? primary.main : primary[500]}
+            />
+            <Paragraph
+              size={17}
+              color={isDrag ? primary.main : primary[500]}
+              style={{ margin: 0 }}
+            >
+              Drag your files here
+            </Paragraph>
+          </Space>
+        )}
       </Row>
       <input
         onChange={onInputChange}

@@ -7,33 +7,7 @@ import {
   faCheckCircle,
   faXmarkCircle,
 } from "@fortawesome/free-solid-svg-icons";
-
-const data = [
-  {
-    file: "base64",
-    name: "image1.jpg",
-    oldSize: "60 KB",
-    newSize: "10 KB",
-    percent: "%80",
-    status: "loading",
-  },
-  {
-    file: "base64",
-    name: "img.jpg",
-    oldSize: "60 KB",
-    newSize: "10 KB",
-    percent: "%80",
-    status: "error",
-  },
-  {
-    file: "base64",
-    name: "image3.jpg",
-    oldSize: "60 KB",
-    newSize: "10 KB",
-    percent: "%80",
-    status: "success",
-  },
-];
+import type { IUploadedFile } from "@/components/organisms/drag-section/data";
 
 const listStyle: CSSProperties = {
   width: "100%",
@@ -55,13 +29,19 @@ const statusIcon: any = {
   },
 };
 
-const ListSection = () => {
+interface ListSectionProps {
+  fileList: IUploadedFile[];
+}
+
+const ListSection = (props: ListSectionProps) => {
+  const { fileList } = props;
+
   return (
     <Row style={listStyle}>
       <Col span={24}>
         <List
           itemLayout="horizontal"
-          dataSource={data}
+          dataSource={fileList}
           renderItem={(item) => (
             <List.Item style={{ padding: "12px 0px" }}>
               <Row justify="space-between" style={{ width: "100%" }}>
@@ -77,10 +57,18 @@ const ListSection = () => {
                     {item.name}
                   </Paragraph>
                 </Space>
-                <Paragraph size={15} color={text.main} style={{ margin: 0, minWidth: 150 }}>
+                <Paragraph
+                  size={15}
+                  color={text.main}
+                  style={{ margin: 0, minWidth: 150 }}
+                >
                   {item.oldSize} {">"} {item.newSize}
                 </Paragraph>
-                <Button type="link" download={true} href={item.file}>
+                <Button
+                  type="link"
+                  download={`${item.name.replace(/\.[^/.]+$/, "")}.webp`}
+                  href={item.file}
+                >
                   Download
                 </Button>
               </Row>

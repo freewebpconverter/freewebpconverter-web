@@ -15,6 +15,7 @@ const fileDetail = (response: any, file: any) => {
   let dataBase64 = Buffer.from(buf).toString("base64");
 
   return {
+    baseFile: file,
     file: dataBase64,
     name: file.originalFilename,
     type: file.mimetype,
