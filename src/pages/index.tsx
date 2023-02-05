@@ -57,23 +57,35 @@ const Home = () => {
       <Header data={navigationData} />
       <CircleAnimation />
       <Container>
-        <Row justify="space-between" align="middle" gutter={90}>
-          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-            <Space direction="vertical" size={0}>
-              <Title level={1} style={{ margin: 0, color: primary.main }}>
+        <Row justify="center" align="middle" gutter={90}>
+          <Col span={24} style={{ marginBottom: 50 }}>
+            <Space direction="vertical" size={0} style={{ width: "100%" }}>
+              <Title
+                level={1}
+                style={{ margin: 0, color: primary.main, textAlign: "center" }}
+              >
                 Free WebP Converter
               </Title>
-              <Title level={2} style={{ marginBottom: 10, marginTop: 10 }}>
+              <Title
+                level={2}
+                style={{ marginBottom: 10, marginTop: 10, textAlign: "center" }}
+              >
                 Convert Any Image File.
               </Title>
-              <Paragraph size={21} color={text.main}>
+              <Paragraph
+                size={21}
+                color={text.main}
+                style={{ textAlign: "center" }}
+              >
                 Free WebP Converter is an image file converter. Convert any
                 image files to WEBP format in seconds.
               </Paragraph>
             </Space>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-            <DragSection />
+          <Col span={24}>
+            <Row justify="center">
+              <DragSection />
+            </Row>
           </Col>
         </Row>
         <FeaturesSection />

@@ -1,3 +1,5 @@
+import { red, orange, green } from "@ant-design/colors";
+
 const primary = {
   main: "#36bf77",
   "500": "#96DEB4",
@@ -29,4 +31,10 @@ const text = {
   main: "#878480",
 };
 
-export { primary, secondary, background, text, black, pink, gray };
+const status = {
+  loading: orange.primary,
+  success: green.primary,
+  error: red.primary,
+};
+
+export { primary, secondary, background, text, black, pink, gray, status };

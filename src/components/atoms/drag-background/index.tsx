@@ -10,8 +10,8 @@ interface IDragBackground {
 
 const style: CSSProperties | undefined = {
   position: "relative",
-  maxWidth: 640,
-  width: "100%",
+  maxWidth: "100%",
+  width: "720px",
   minHeight: 360,
   backgroundColor: background.main,
   border: `dashed 2px ${secondary.main}`,
