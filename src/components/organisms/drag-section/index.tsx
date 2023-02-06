@@ -95,7 +95,7 @@ const DragSection = () => {
     }
 
     axios
-      .post("/api/convert", formData, {
+      .post("https://free-webp-converter-api.onrender.com/api/convert", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
