@@ -16,7 +16,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   form.parse(req, (err, fields, files: any) => {
     if (err) {
-      res.json({ success: false });
+      res.json({ success: false, error: err });
     }
 
     const type = files.files.length ? "multiple" : "single";
@@ -52,9 +52,7 @@ const convertAllImageToBase64 = (files: any, type: string) => {
             .then((sharpRes: any) => {
               images.push(fileDetail(sharpRes, file));
             })
-            .catch((sharpErr: any) => {
-              reject(`sharpErr: ${sharpErr}`);
-            });
+            .catch((err: any) => reject(err));
         })
       );
     } else {
@@ -64,9 +62,7 @@ const convertAllImageToBase64 = (files: any, type: string) => {
         .then((sharpRes: any) => {
           images.push(fileDetail(sharpRes, files));
         })
-        .catch((sharpErr: any) => {
-          reject(`sharpErr: ${sharpErr}`);
-        });
+        .catch((err: any) => reject(err));
     }
 
     resolve(images);
