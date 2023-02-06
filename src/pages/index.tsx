@@ -51,6 +51,10 @@ const Home = () => {
           name="description"
           content="Free WebP Converter is an image file converter. Convert any image files to WEBP format in seconds."
         />
+        <meta
+          name="keywords"
+          content="converter, image, picture, png, jpg, gif, webp"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -23,7 +23,7 @@ const FeaturesSection = () => {
         <FeatureItem
           icon={faImage}
           title="File Support"
-          detail="The application supports JPEG, JPG, GIF, and PNG formats."
+          detail="The application supports JPG, PNG, and GIF formats."
         />
       </Col>
       <Col className="gutter-row" xs={{ span: 24 }} lg={{ span: 8 }}>

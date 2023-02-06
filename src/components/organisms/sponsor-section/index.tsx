@@ -1,16 +1,16 @@
 import { Row, Col, Space } from "antd";
-import { Container, Button, Icon } from "@components/atoms";
-import { background } from "@/theme/color";
+import { Container, Button, Icon, Paragraph } from "@components/atoms";
+import { background, black } from "@/theme/color";
 import { CSSProperties } from "react";
 import { SectionTitle } from "@/components/molecules";
-import { pink, gray } from "@/theme/color";
+import { yellow, gray } from "@/theme/color";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 const rowStyle: CSSProperties = {
   backgroundColor: background[500],
   padding: "100px 0px",
-  marginTop: 150,
+  marginTop: 50,
 };
 
 const SponsorSection = () => {
@@ -46,10 +46,21 @@ const SponsorSection = () => {
                     Github
                   </Space>
                 </Button>
-                <Button customBg={pink.main} type="primary">
+                <Button
+                  customBg={yellow.main}
+                  type="primary"
+                  href="https://www.buymeacoffee.com/yasgo"
+                  target="_blank"
+                >
                   <Space size={20} align="center">
-                    <Icon size="1x" icon={faHeart} />
-                    Sponsor
+                    <Icon color={black.main} size="1x" icon={faCoffee} />
+                    <Paragraph
+                      size={15}
+                      color={black.main}
+                      style={{ margin: 0 }}
+                    >
+                      Buy Me A Coffee
+                    </Paragraph>
                   </Space>
                 </Button>
               </Space>
