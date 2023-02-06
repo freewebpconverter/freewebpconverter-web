@@ -36,4 +36,6 @@ const DragBackground = React.forwardRef<HTMLElement, IDragBackground>(
   }
 );
 
+DragBackground.displayName = "DragBackground";
+
 export default DragBackground;
