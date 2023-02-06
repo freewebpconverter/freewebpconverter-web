@@ -1,71 +1,102 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-
-:root {
-  --primary: #36bf77;
-  --black: #000000;
-  --gray: #878480;
-}
 * {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#__next {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .container {
-  max-width: 1440px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+.circle-animation {
+  position: absolute;
+  width: 50vh;
+  height: 50vh;
+  left: -25vh;
+  top: 50px;
+  border-radius: 50%;
+  z-index: -1;
+  transform: rotate(0deg);
+  background: rgb(224, 246, 201);
+  background: linear-gradient(-90deg, #e0f6c9 0%, #f5fcee 100%);
+  transform-origin: center center;
+
+  animation-name: circleAnimation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-timing-function: linear;
+}
+
+.circle-animation::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   margin: auto;
-  width: 100%;
-  padding: 0px 30px;
+
+  background-color: #fff;
 }
 
-#__next {
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-article {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-article img {
-  margin-bottom: 30px;
-}
-
-h1 {
-  color: var(--primary);
-  font-size: 43px;
-}
-
-h2 {
-  color: var(--black);
-  font-size: 53px;
-}
-
-p {
-  color: var(--gray);
-  font-size: 21px;
-}
-
-@media screen and (max-width: 767px) {
-  article img {
-    height: 50px;
+@keyframes circleAnimation {
+  from {
+    transform-origin: center center;
+    transform: rotate(0deg);
   }
-
-  h1 {
-    font-size: 33px;
-  }
-
-  h2 {
-    font-size: 43px;
-  }
-
-  p {
-    font-size: 17px;
+  to {
+    transform-origin: center center;
+    transform: rotate(360deg);
   }
 }
