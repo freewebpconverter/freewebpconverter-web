@@ -23,8 +23,10 @@
     "axios": "^1.2.5",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.5",
+    "file-saver": "^2.0.5",
     "formidable": "^2.1.1",
     "i18next": "^22.4.9",
+    "jszip": "^3.10.1",
     "next": "13.1.5",
     "next-i18next": "^13.0.3",
     "nodemailer": "^6.9.0",
@@ -36,6 +38,7 @@
     "webp-converter": "^2.3.3"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@types/imagemin": "^8.0.0"
   }
 }

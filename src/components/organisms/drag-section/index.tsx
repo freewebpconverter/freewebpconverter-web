@@ -1,13 +1,28 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
+import JSZip from "jszip";
+
+import { saveAs } from "file-saver";
+import { warningHandler, errorHandler, successHandler } from "@/utils/error";
 
 import { CSSProperties } from "react";
-import { Icon, IconButton, DragBackground, Paragraph } from "@components/atoms";
-import { ListSection, ListTable } from "@components/organisms";
-import { faInfo, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { Space, Tooltip, Row, Col } from "antd";
+import {
+  Icon,
+  IconButton,
+  DragBackground,
+  Paragraph,
+  Button,
+} from "@components/atoms";
+import { ListTable } from "@components/organisms";
+import {
+  faInfo,
+  faCloudArrowUp,
+  faSpinner,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
+import { Space, Tooltip, Row, Col, Alert } from "antd";
 import { primary } from "@/theme/color";
-import type { IUploadedFile } from "./data";
+import { fileFormatControl } from "@/utils";
 
 const iconStyle: CSSProperties | undefined = {
   position: "absolute",
@@ -17,7 +32,8 @@ const iconStyle: CSSProperties | undefined = {
 
 const DragSection = () => {
   const [isDrag, setIsDrag] = useState(false);
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dropzone = useRef<HTMLElement | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
@@ -28,11 +44,9 @@ const DragSection = () => {
 
     setIsDrag(false);
 
-    const files = e.dataTransfer.files;
+    if (!e.dataTransfer.files) return;
 
-    if (files.length > 0) {
-      setConvert(files);
-    }
+    setConvert(e.dataTransfer.files);
   };
 
   const dragHandler = (e: any) => {
@@ -55,14 +69,23 @@ const DragSection = () => {
     }
   };
 
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("e.target.files: ", e.target.files);
+  const onInputChange = (e: any) => {
     if (!e.target.files) return;
 
     setConvert(e.target.files);
   };
 
   const setConvert = (files: FileList) => {
+    const hasIgnoreFiles = fileFormatControl(files);
+
+    if (hasIgnoreFiles) {
+      errorHandler("Unsupported format.");
+
+      return;
+    }
+
+    setIsLoading(true);
+
     const formData: any = new FormData();
 
     for (let i = 0; i < files.length; i++) {
@@ -78,20 +101,48 @@ const DragSection = () => {
         },
       })
       .then((res: any) => {
+        setIsLoading(false);
+
         if (res.data.success) {
-          const responseFileList: any = res.data.body.map((item: any) => ({
-            ...item,
-            file: "data:image/webp;base64," + item.file,
-          }));
+          const responseFileList: any = res.data.body.map(
+            (item: any, index: any) => ({
+              ...item,
+              key: Date.now() + item.name,
+              file: "data:image/webp;base64," + item.file,
+            })
+          );
 
-          const newFileList: any = [...responseFileList, ...fileList];
-
-          setFileList(newFileList);
+          addItem(responseFileList);
+          successHandler("Process has done successfully.");
+        } else {
+          errorHandler(res.data.error);
         }
       })
       .catch((err) => {
-        console.log("err: ", err);
+        setIsLoading(false);
+        errorHandler(err);
       });
+  };
+
+  const addItem = (item: any) => {
+    setFileList((fileList: any) => [...item, ...fileList]);
+  };
+
+  const onDownloadAllClick = async () => {
+    var zip = new JSZip();
+
+    var img = zip.folder("images");
+
+    fileList.map((fileItem: any) => {
+      const fileName = `${fileItem.name.replace(/\.[^/.]+$/, "")}.webp`;
+      const fileData = fileItem.file.replace("data:image/webp;base64,", "");
+
+      img && img.file(fileName, fileData, { base64: true });
+    });
+
+    const content = await zip.generateAsync({ type: "blob" });
+
+    saveAs(content, "images.zip");
   };
 
   useEffect(() => {
@@ -113,7 +164,7 @@ const DragSection = () => {
   return (
     <>
       <DragBackground ref={dropzone} onClick={clickHandler}>
-        <Tooltip title="Max. 5 MB Image(JPG, JPEG, GIF and PNG) File">
+        <Tooltip title="JPG, PNG and GIF">
           <IconButton style={iconStyle}>
             <Icon icon={faInfo} />
           </IconButton>
@@ -122,7 +173,8 @@ const DragSection = () => {
           <Space direction="vertical" align="center">
             <Icon
               size="4x"
-              icon={faCloudArrowUp}
+              icon={isLoading ? faSpinner : faCloudArrowUp}
+              className={`${isLoading && "fa-spin"}`}
               color={isDrag ? primary.main : primary[500]}
             />
             <Paragraph
@@ -130,7 +182,9 @@ const DragSection = () => {
               color={isDrag ? primary.main : primary[500]}
               style={{ margin: 0 }}
             >
-              Drag your files here
+              {isLoading
+                ? "Your files are processing..."
+                : "Drag your files here"}
             </Paragraph>
           </Space>
         </Row>
@@ -139,10 +193,25 @@ const DragSection = () => {
           type="file"
           multiple
           ref={fileInput}
+          accept="image/png, image/jpeg, image/gif"
           style={{ display: "none" }}
         />
       </DragBackground>
-      <ListTable fileList={fileList} />
+      {fileList.length > 0 && (
+        <>
+          <ListTable fileList={fileList} />
+          <Row justify="center" style={{ width: "100%", marginTop: 50 }}>
+            <Col>
+              <Button onClick={onDownloadAllClick} type="primary">
+                <Space>
+                  <Icon icon={faDownload} />
+                  Download All
+                </Space>
+              </Button>
+            </Col>
+          </Row>
+        </>
+      )}
     </>
   );
 };

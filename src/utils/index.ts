@@ -28,4 +28,12 @@ const fileDetail = (response: any, file: any) => {
 const calcPercent = (newSize: number, oldSize: number) =>
   `-${Math.floor(((oldSize - newSize) / oldSize) * 100)}%`;
 
-export { fileDetail };
+const fileFormatControl = (files: any) => {
+  const re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+  const hasIgnoreFiles =
+    Array.from(files).filter((item: any) => !re.exec(item.name)).length > 0;
+
+  return hasIgnoreFiles;
+};
+
+export { fileDetail, fileFormatControl };

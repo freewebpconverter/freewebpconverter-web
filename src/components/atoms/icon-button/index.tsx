@@ -5,11 +5,7 @@ import { IconButtonTheme } from "@/theme";
 const IconButton = ({ children, ...rest }: ButtonProps) => {
   return (
     <IconButtonTheme>
-      <AntdButton
-        shape="circle"
-        type="primary"
-        {...rest}
-      >
+      <AntdButton shape="circle" type="primary" {...rest}>
         {children}
       </AntdButton>
     </IconButtonTheme>
