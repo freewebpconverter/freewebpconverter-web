@@ -36,4 +36,26 @@ const fileFormatControl = (files: any) => {
   return hasIgnoreFiles;
 };
 
-export { fileDetail, fileFormatControl };
+const convertBase64 = (file: any) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+};
+
+const getCleanBase64 = async (file: any) => {
+  const base64: any = await convertBase64(file);
+  const cleanBase64 = base64.replace(/^data:image\/[a-z]+;base64,/, "");
+
+  return cleanBase64;
+};
+
+export { fileDetail, fileFormatControl, getCleanBase64, formatBytes };

@@ -22,7 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Space, Tooltip, Row, Col, Alert } from "antd";
 import { primary } from "@/theme/color";
-import { fileFormatControl } from "@/utils";
+import { fileFormatControl, getCleanBase64, formatBytes } from "@/utils";
 
 const iconStyle: CSSProperties | undefined = {
   position: "absolute",
@@ -75,7 +75,7 @@ const DragSection = () => {
     setConvert(e.target.files);
   };
 
-  const setConvert = (files: FileList) => {
+  const setConvert = async (files: FileList) => {
     const hasIgnoreFiles = fileFormatControl(files);
 
     if (hasIgnoreFiles) {
@@ -86,25 +86,39 @@ const DragSection = () => {
 
     setIsLoading(true);
 
-    const formData: any = new FormData();
+    const filesData: any = [];
 
     for (let i = 0; i < files.length; i++) {
-      const fileItem = files[i];
+      const fileItem: any = files[i];
+      const base64 = await getCleanBase64(fileItem);
 
-      formData.append("files", fileItem, fileItem.name);
+      console.log("fileItem: ", fileItem);
+
+      filesData.push({
+        file: base64,
+        name: fileItem.name,
+        type: fileItem.type,
+        size: fileItem.size,
+      });
     }
 
+    console.log("filesData: ", filesData);
+
     axios
-      .post("https://free-webp-converter-api.onrender.com/api/convert", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      .post(
+        "https://octopus-app-o8779.ondigitalocean.app/sample/convert",
+        {
+          files: filesData,
         },
-      })
+        {
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
+      )
       .then((res: any) => {
         setIsLoading(false);
 
-        if (res.data.success) {
-          const responseFileList: any = res.data.body.map(
+        if (res.status === 200) {
+          const responseFileList: any = res.data.files.map(
             (item: any, index: any) => ({
               ...item,
               key: Date.now() + item.name,
@@ -115,7 +129,7 @@ const DragSection = () => {
           addItem(responseFileList);
           successHandler("Process has done successfully.");
         } else {
-          errorHandler(res.data.error);
+          errorHandler(res.data.statusText);
         }
       })
       .catch((err) => {
