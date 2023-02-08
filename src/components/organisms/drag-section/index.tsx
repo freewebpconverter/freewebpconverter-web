@@ -84,6 +84,12 @@ const DragSection = () => {
       return;
     }
 
+    if (files.length == 0) {
+      errorHandler("Please select at least one file.");
+
+      return;
+    }
+
     setIsLoading(true);
 
     const filesData: any = [];
@@ -102,18 +108,21 @@ const DragSection = () => {
       });
     }
 
-    console.log("filesData: ", filesData);
+    const url = "https://octopus-app-o8779.ondigitalocean.app/sample/convert";
+
+    const params = {
+      files: filesData,
+    };
+
+    const headers = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    };
 
     axios
-      .post(
-        "https://octopus-app-o8779.ondigitalocean.app/sample/convert",
-        {
-          files: filesData,
-        },
-        {
-          headers: { "Access-Control-Allow-Origin": "*" },
-        }
-      )
+      .post(url, params, headers)
       .then((res: any) => {
         setIsLoading(false);
 
@@ -134,7 +143,11 @@ const DragSection = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        errorHandler(err);
+        if (err.response.status === 413) {
+          errorHandler("Please select a file of a maximum of 1 MB.");
+        } else {
+          errorHandler(err.response.data.error);
+        }
       });
   };
 
@@ -178,7 +191,7 @@ const DragSection = () => {
   return (
     <>
       <DragBackground ref={dropzone} onClick={clickHandler}>
-        <Tooltip title="JPG, PNG and GIF">
+        <Tooltip title="Max 1MB JPG, PNG and GIF">
           <IconButton style={iconStyle}>
             <Icon icon={faInfo} />
           </IconButton>
