@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to the <a href="https://getbootstrap.com/">Free WebP Converter</a> community!</h1><br>
+<h1 align="center">Welcome to the <a href="https://freewebpconverter.com/">Free WebP Converter</a> community!</h1><br>
 
 <p align="center">
   <a href="https://freewebpconverter.com/">
