@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
+import Script from "next/script";
 import nextI18NextConfig from "../../next-i18next.config";
 
 import type { AppProps } from "next/app";
@@ -18,15 +19,30 @@ const fontPoppins = Poppins({
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          fontFamily: fontPoppins.style.fontFamily,
-        },
-      }}
-    >
-      <Component {...pageProps} />
-    </ConfigProvider>
+    <>
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-FS71XRSB37"
+      />
+      <Script>
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-FS71XRSB37');
+          `}
+      </Script>
+      <ConfigProvider
+        theme={{
+          token: {
+            fontFamily: fontPoppins.style.fontFamily,
+          },
+        }}
+      >
+        <Component {...pageProps} />
+      </ConfigProvider>
+    </>
   );
 };
 
