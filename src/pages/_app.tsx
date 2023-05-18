@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import nextI18NextConfig from "../../next-i18next.config";
-import ReactGA from "react-ga";
+import Script from "next/script";
 
 import type { AppProps } from "next/app";
 import { Poppins } from "@next/font/google";
@@ -17,8 +17,6 @@ const fontPoppins = Poppins({
   subsets: ["latin"],
 });
 
-ReactGA.initialize("G-FS71XRSB37");
-
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ConfigProvider
@@ -28,6 +26,20 @@ const App = ({ Component, pageProps }: AppProps) => {
         },
       }}
     >
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-FS71XRSB37"
+      />
+
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-FS71XRSB37');
+        `}
+      </Script>
       <Component {...pageProps} />
     </ConfigProvider>
   );
