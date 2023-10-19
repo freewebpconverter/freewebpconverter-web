@@ -102,10 +102,23 @@ const Home = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? "tr", ["navigation"])),
-  },
-});
+// export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => ({
+//   props: {
+//     ...(await serverSideTranslations(locale ?? "tr", ["navigation"])),
+//   },
+// });
+
+export async function getServerSideProps({ req, res }: any) {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
+  return {
+    props: {
+      time: new Date().toISOString(),
+    },
+  };
+}
 
 export default Home;
