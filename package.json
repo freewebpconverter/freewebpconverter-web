@@ -32,7 +32,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-i18next": "^12.1.4",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.6",
     "webp-converter": "^2.3.3"
   },
   "devDependencies": {
