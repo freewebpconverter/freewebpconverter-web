@@ -108,7 +108,9 @@ const DragSection = () => {
       });
     }
 
-    const url = "https://octopus-app-o8779.ondigitalocean.app/sample/convert";
+    // const url = "https://octopus-app-o8779.ondigitalocean.app/sample/convert";
+
+    const url = "https://yasinkalkan.com/api/converter/webp";
 
     const params = {
       files: filesData,
@@ -143,11 +145,14 @@ const DragSection = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        if (err.response.status === 413) {
-          errorHandler("Please select a file of a maximum of 1 MB.");
-        } else {
-          errorHandler(err.response.data.error);
-        }
+        console.log("err: ", err);
+
+        // setIsLoading(false);
+        // if (err.response.status === 413) {
+        //   errorHandler("Please select a file of a maximum of 1 MB.");
+        // } else {
+        //   errorHandler(err.response.data.error);
+        // }
       });
   };
 
