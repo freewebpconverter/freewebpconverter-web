@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "name": "freewebpconverter-web",
   "version": "0.1.0",
   "private": true,
