@@ -80,13 +80,11 @@ const DragSection = () => {
 
     if (hasIgnoreFiles) {
       errorHandler("Unsupported format.");
-
       return;
     }
 
-    if (files.length == 0) {
+    if (files.length === 0) {
       errorHandler("Please select at least one file.");
-
       return;
     }
 
@@ -108,23 +106,29 @@ const DragSection = () => {
       });
     }
 
-    // const url = "https://octopus-app-o8779.ondigitalocean.app/sample/convert";
-
-    const url = "https://yasinkalkan.com/api/converter/webp";
+    const url = "https://yasinkalkan.com/api/converter/webp/";
+    // const url = "http://localhost:8888/api/converter/webp/";
 
     const params = {
       files: filesData,
     };
 
     const headers = {
+      "Content-Type": "application/json",
+    };
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: url,
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
+      data: params,
     };
 
     axios
-      .post(url, params, headers)
+      .request(config)
       .then((res: any) => {
         setIsLoading(false);
 
@@ -137,6 +141,8 @@ const DragSection = () => {
             })
           );
 
+          console.log("responseFileList: ", responseFileList);
+
           addItem(responseFileList);
           successHandler("Process has done successfully.");
         } else {
@@ -147,12 +153,13 @@ const DragSection = () => {
         setIsLoading(false);
         console.log("err: ", err);
 
-        // setIsLoading(false);
-        // if (err.response.status === 413) {
-        //   errorHandler("Please select a file of a maximum of 1 MB.");
-        // } else {
-        //   errorHandler(err.response.data.error);
-        // }
+        if (err.response && err.response.status === 413) {
+          errorHandler("Please select a file of a maximum of 1 MB.");
+        } else {
+          errorHandler(
+            err.response ? err.response.data.error : "Unknown error"
+          );
+        }
       });
   };
 
