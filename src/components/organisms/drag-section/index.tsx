@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import JSZip from "jszip";
-
 import { saveAs } from "file-saver";
 import { warningHandler, errorHandler, successHandler } from "@/utils/error";
-
 import { CSSProperties } from "react";
 import {
   Icon,
@@ -38,44 +36,7 @@ const DragSection = () => {
   const dropzone = useRef<HTMLElement | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
 
-  const dropHandler = (e: any) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    setIsDrag(false);
-
-    if (!e.dataTransfer.files) return;
-
-    setConvert(e.dataTransfer.files);
-  };
-
-  const dragHandler = (e: any) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    setIsDrag(true);
-  };
-
-  const dragLeaveHandler = (e: any) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    setIsDrag(false);
-  };
-
-  const clickHandler = () => {
-    if (fileInput.current) {
-      fileInput.current.click();
-    }
-  };
-
-  const onInputChange = (e: any) => {
-    if (!e.target.files) return;
-
-    setConvert(e.target.files);
-  };
-
-  const setConvert = async (files: FileList) => {
+  const setConvert = useCallback(async (files: FileList) => {
     const hasIgnoreFiles = fileFormatControl(files);
 
     if (hasIgnoreFiles) {
@@ -121,9 +82,7 @@ const DragSection = () => {
       method: "post",
       maxBodyLength: Infinity,
       url: url,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       data: params,
     };
 
@@ -161,6 +120,46 @@ const DragSection = () => {
           );
         }
       });
+  }, []);
+
+  const dropHandler = useCallback(
+    (e: any) => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      setIsDrag(false);
+
+      if (!e.dataTransfer.files) return;
+
+      setConvert(e.dataTransfer.files);
+    },
+    [setConvert]
+  );
+
+  const dragHandler = useCallback((e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    setIsDrag(true);
+  }, []);
+
+  const dragLeaveHandler = useCallback((e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    setIsDrag(false);
+  }, []);
+
+  const clickHandler = () => {
+    if (fileInput.current) {
+      fileInput.current.click();
+    }
+  };
+
+  const onInputChange = (e: any) => {
+    if (!e.target.files) return;
+
+    setConvert(e.target.files);
   };
 
   const addItem = (item: any) => {
@@ -185,20 +184,22 @@ const DragSection = () => {
   };
 
   useEffect(() => {
-    if (dropzone.current) {
-      dropzone.current.addEventListener("drop", dropHandler);
-      dropzone.current.addEventListener("dragover", dragHandler);
-      dropzone.current.addEventListener("dragleave", dragLeaveHandler);
+    const dropzoneElement = dropzone.current;
+
+    if (dropzoneElement) {
+      dropzoneElement.addEventListener("drop", dropHandler);
+      dropzoneElement.addEventListener("dragover", dragHandler);
+      dropzoneElement.addEventListener("dragleave", dragLeaveHandler);
     }
 
     return () => {
-      if (dropzone.current) {
-        dropzone.current.removeEventListener("drop", dropHandler);
-        dropzone.current.removeEventListener("dragover", dragHandler);
-        dropzone.current.removeEventListener("dragleave", dragLeaveHandler);
+      if (dropzoneElement) {
+        dropzoneElement.removeEventListener("drop", dropHandler);
+        dropzoneElement.removeEventListener("dragover", dragHandler);
+        dropzoneElement.removeEventListener("dragleave", dragLeaveHandler);
       }
     };
-  }, [dropzone]);
+  }, [dropHandler, dragHandler, dragLeaveHandler]);
 
   return (
     <>

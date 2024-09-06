@@ -11,12 +11,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // i18n,
-  experimental: {
-    fontLoaders: [
-      { loader: "@next/font/google", options: { subsets: ["latin"] } },
-    ],
-  },
+  // i18n, // Bunu aktif etmek istiyorsanız yorumu kaldırabilirsiniz
   async headers() {
     return [
       {
