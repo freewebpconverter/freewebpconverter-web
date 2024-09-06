@@ -1,102 +1,42 @@
-* {
-  margin: 0;
-  padding: 0;
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 html,
-body,
-#__next {
-  width: 100%;
+body {
+  max-width: 100vw;
   overflow-x: hidden;
 }
 
-.container {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  padding-right: 15px;
-  padding-left: 15px;
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (max-width: 576px) {
-  .container {
-    max-width: 100%;
-  }
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1320px;
-  }
-}
-
-.circle-animation {
-  position: absolute;
-  width: 50vh;
-  height: 50vh;
-  left: -25vh;
-  top: 50px;
-  border-radius: 50%;
-  z-index: -1;
-  transform: rotate(0deg);
-  background: rgb(224, 246, 201);
-  background: linear-gradient(-90deg, #e0f6c9 0%, #f5fcee 100%);
-  transform-origin: center center;
-
-  animation-name: circleAnimation;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-direction: normal;
-  animation-timing-function: linear;
-}
-
-.circle-animation::before {
-  content: "";
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  border-radius: 50%;
-
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-
-  background-color: #fff;
-}
-
-@keyframes circleAnimation {
-  from {
-    transform-origin: center center;
-    transform: rotate(0deg);
-  }
-  to {
-    transform-origin: center center;
-    transform: rotate(360deg);
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
   }
 }

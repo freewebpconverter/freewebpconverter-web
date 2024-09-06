@@ -1,49 +1,16 @@
 {
-  "engines": {
-    "node": ">=18.17.0"
-  },
-  "name": "freewebpconverter-web",
+  "name": "freewebpconverter",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "export": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.2.1",
-    "@fortawesome/free-brands-svg-icons": "^6.2.1",
-    "@fortawesome/free-solid-svg-icons": "^6.2.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@next/bundle-analyzer": "^13.5.5",
-    "@next/font": "13.1.5",
-    "@types/formidable": "^2.0.5",
-    "@types/react-dom": "18.0.10",
-    "antd": "^5.1.6",
-    "axios": "^1.6.0",
-    "eslint": "8.32.0",
-    "eslint-config-next": "13.1.5",
-    "file-saver": "^2.0.5",
-    "formidable": "^2.1.1",
-    "i18next": "^22.4.9",
-    "jszip": "^3.10.1",
-    "next": "14.2.5",
-    "next-i18next": "^13.0.3",
-    "nodemailer": "^6.9.9",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-i18next": "^12.1.4",
-    "sharp": "^0.32.6",
-    "webp-converter": "^2.3.3"
-  },
-  "devDependencies": {
-    "@types/file-saver": "^2.0.5",
-    "@types/imagemin": "^8.0.0",
-    "@types/node": "^20.2.0",
-    "@types/react": "^18.2.6",
-    "cross-env": "^7.0.3",
-    "typescript": "^5.0.4"
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.2.8"
   }
 }
